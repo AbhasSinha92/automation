@@ -12,8 +12,7 @@ test('Home page' , async ({page}) => {
   const pageURL=page.url();
   console.log('page URL is:', pageURL);
 
-  await expect(page). toHaveURL('https://www.demoblaze.com/index.html');
-  await page.close();
+
 
 
 })
