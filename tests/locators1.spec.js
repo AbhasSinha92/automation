@@ -1,21 +1,13 @@
 const {test, expect } = require('@playwright/test');
+const { OrangeHrmLoginPage } = require('../pages/OrangeHrmLoginPage');
 
 test('locators1', async ({ page }) => {
+  const loginPage = new OrangeHrmLoginPage(page);
 
-  await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+  await loginPage.open();
 
-  // page.getByAltText() to locate an element, usually image, by its text alternative.
- const logo= await page.getByAltText('company-branding') 
- await expect(logo).toBeVisible();
+  await expect(loginPage.logo).toBeVisible();
 
-  //page.getByPlaceholder() to locate an input by placeholder.
-  await page.getByPlaceholder('Username').fill("Admin")
-  await page.getByPlaceholder('Password').fill("admin123")
-
-  //page.getByRole() to locate by explicit and implicit accessibility attributes.
-  await page.getByRole('button', {type:'submit'}).click()
-
-
-  
+  await loginPage.login('Admin', 'admin123');
 
 });

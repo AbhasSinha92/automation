@@ -1,20 +1,18 @@
 
-const { test, expect } = require('@playwright/test');
+const { test } = require('@playwright/test');
+const { DemoblazePage } = require('../pages/DemoblazePage');
 
 test('LocateMultipleElements', async ({ page }) => {
-  await page.goto('https://www.demoblaze.com/index.html');
+  const demoblazePage = new DemoblazePage(page);
+  await demoblazePage.open();
 
-  // Get all links
-  const links = await page.$$('a');
-  for (const link of links) {
-    const linkText = await link.textContent();
+  const links = await demoblazePage.getLinkTexts();
+  for (const linkText of links) {
     console.log(linkText);
   }
 
-  // Get all product titles
-  const products = await page.$$("//div[@id='tbodyid']//div/h4/a");
-  for (const product of products) {
-    const productText = await product.textContent();
+  const products = await demoblazePage.getProductTitles();
+  for (const productText of products) {
     console.log(productText);
   }
 });

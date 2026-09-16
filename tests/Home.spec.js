@@ -1,10 +1,12 @@
-const {test,expect} = require('@playwright/test')
+const { test, expect } = require('@playwright/test');
+const { DemoblazePage } = require('../pages/DemoblazePage');
 
 test('Home page' , async ({page}) => {
+  const demoblazePage = new DemoblazePage(page);
 
-  await page.goto('https://www.demoblaze.com/index.html');
+  await demoblazePage.open();
 
-  const pageTitle=page.title();
+  const pageTitle = await page.title();
   console.log('page title is:', pageTitle);
 
   await expect(page).toHaveTitle('STORE');
